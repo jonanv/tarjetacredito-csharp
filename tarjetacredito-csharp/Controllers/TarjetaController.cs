@@ -3,32 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace tarjetacredito_csharp.Controllers
 {
     [Route("api/[controller]")]
-    public class TarjetaController : Controller
+    public class TarjetaController : ControllerBase
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ApplicationDbContext _context;
+
+        public TarjetaController(ApplicationDbContext context)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/values
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            return "value";
+            try
+            {
+                var listTarjetas = await _context.TarjetaCredito.ToListAsync();
+                return Ok(listTarjetas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         // PUT api/values/5
