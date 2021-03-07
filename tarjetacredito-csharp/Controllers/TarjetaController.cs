@@ -20,7 +20,7 @@ namespace tarjetacredito_csharp.Controllers
             _context = context;
         }
 
-        // GET: api/values
+        // GET: api/<TarjetaController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -35,7 +35,7 @@ namespace tarjetacredito_csharp.Controllers
             }
         }
 
-        // POST api/values
+        // POST api/<TarjetaController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TarjetaCredito tarjeta)
         {
@@ -51,13 +51,30 @@ namespace tarjetacredito_csharp.Controllers
             }
         }
 
-        // PUT api/values/5
+        // PUT api/<TarjetaController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] TarjetaCredito tarjeta)
         {
+            try
+            {
+                if (id != tarjeta.Id)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _context.Update(tarjeta);
+                    await _context.SaveChangesAsync();
+                    return Ok(new { message = "La tarjeta fue actualizada con exito!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        // DELETE api/values/5
+        // DELETE api/<TarjetaController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
