@@ -81,7 +81,7 @@ namespace tarjetacredito_csharp.Controllers
             try
             {
                 var tarjeta = await _context.TarjetaCredito.FindAsync(id);
-                if (tarjeta.Id == null)
+                if (tarjeta == null)
                 {
                     return NotFound();
                 }
