@@ -76,8 +76,23 @@ namespace tarjetacredito_csharp.Controllers
 
         // DELETE api/<TarjetaController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var tarjeta = await _context.TarjetaCredito.FindAsync(id);
+                if (tarjeta.Id == null)
+                {
+                    return NotFound();
+                }
+                _context.TarjetaCredito.Remove(tarjeta);
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "La tarjeta fue eliminado con exito!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
