@@ -8,7 +8,7 @@ namespace tarjetacredito_csharp
     {
         DbSet<TarjetaCredito> TarjetaCredito { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
         }
     }
