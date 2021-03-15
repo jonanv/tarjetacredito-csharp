@@ -37,6 +37,10 @@ namespace tarjetacredito_csharp
             services.AddDbContext<ApplicationDbContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("DevConnection"))
             );
+            services.AddCors(options => options.AddPolicy("AllowWebApp",
+                             builder => builder.AllowAnyOrigin()
+                                               .AllowAnyHeader()
+                                               .AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +52,8 @@ namespace tarjetacredito_csharp
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "tarjetacredito_csharp v1"));
             }
+
+            app.UseCors("AllowWebApp");
 
             app.UseHttpsRedirection();
 
