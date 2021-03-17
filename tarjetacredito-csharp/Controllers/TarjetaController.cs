@@ -57,7 +57,7 @@ namespace tarjetacredito_csharp.Controllers
         {
             try
             {
-                if (id != tarjeta.Id)
+                if (id != tarjeta.Id || id == 0)
                 {
                     return NotFound();
                 }
