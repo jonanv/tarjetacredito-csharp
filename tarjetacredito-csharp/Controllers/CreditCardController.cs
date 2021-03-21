@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,23 +9,24 @@ using tarjetacredito_csharp.Models;
 namespace tarjetacredito_csharp.Controllers
 {
     [Route("api/[controller]")]
-    public class TarjetaController : ControllerBase
+    public class CreditCardController : Controller
     {
+        // Declaration del contexto
         private readonly ApplicationDbContext _context;
 
-        public TarjetaController(ApplicationDbContext context)
+        public CreditCardController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/<TarjetaController>
+        // GET: api/<CreditCard>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var listTarjetas = await _context.TarjetaCredito.ToListAsync();
-                return Ok(listTarjetas);
+                var creditCardList = await _context.CreditCard.ToListAsync();
+                return Ok(creditCardList);
             }
             catch (Exception ex)
             {
@@ -35,15 +34,15 @@ namespace tarjetacredito_csharp.Controllers
             }
         }
 
-        // POST api/<TarjetaController>
+        // POST api/<CreditCard>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] TarjetaCredito tarjeta)
+        public async Task<IActionResult> Post([FromBody] CreditCard creditCard)
         {
             try
             {
-                _context.Add(tarjeta);
+                _context.Add(creditCard);
                 await _context.SaveChangesAsync();
-                return Ok(tarjeta);
+                return Ok(creditCard);
             }
             catch (Exception ex)
             {
@@ -51,19 +50,19 @@ namespace tarjetacredito_csharp.Controllers
             }
         }
 
-        // PUT api/<TarjetaController>/5
+        // PUT api/<CreditCard>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] TarjetaCredito tarjeta)
+        public async Task<IActionResult> Put(int id, [FromBody] CreditCard creditCard)
         {
             try
             {
-                if (id != tarjeta.Id || id == 0)
+                if (id != creditCard.Id || id == 0)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    _context.Update(tarjeta);
+                    _context.Update(creditCard);
                     await _context.SaveChangesAsync();
                     return Ok(new { message = "La tarjeta fue actualizada con exito!" });
                 }
@@ -74,18 +73,18 @@ namespace tarjetacredito_csharp.Controllers
             }
         }
 
-        // DELETE api/<TarjetaController>/5
+        // DELETE api/<CreditCard>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var tarjeta = await _context.TarjetaCredito.FindAsync(id);
-                if (tarjeta == null)
+                var creditCard = await _context.CreditCard.FindAsync(id);
+                if (creditCard == null)
                 {
                     return NotFound();
                 }
-                _context.TarjetaCredito.Remove(tarjeta);
+                _context.CreditCard.Remove(creditCard);
                 await _context.SaveChangesAsync();
                 return Ok(new { message = "La tarjeta fue eliminado con exito!" });
             }

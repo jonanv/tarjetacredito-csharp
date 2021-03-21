@@ -15,10 +15,10 @@ namespace tarjetacredito_csharp.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("tarjetacredito_csharp.Models.TarjetaCredito", b =>
+            modelBuilder.Entity("tarjetacredito_csharp.Models.CreditCard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,21 +29,25 @@ namespace tarjetacredito_csharp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FechaExpiracion")
+                    b.Property<string>("MonthExpiration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroTarjeta")
+                    b.Property<string>("NameHolder")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Titular")
+                    b.Property<string>("NumberCardCredit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YearExpiration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TarjetaCredito");
+                    b.ToTable("CreditCard");
                 });
 #pragma warning restore 612, 618
         }
